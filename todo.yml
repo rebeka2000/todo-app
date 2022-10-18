@@ -1,0 +1,47 @@
+openapi: 3.0.0
+info:
+  title: Task API
+  description: My Homework.
+  version: 1.0.0
+
+paths:
+  /tasks:
+    get:
+      tags:
+        - Tasks
+      summary: Returns a list of users.
+      responses:
+        "200":
+          description: OK
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tasks:
+                     type: array
+                     items: 
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 123
+                        dueDate:
+                          type: string
+                          format: date
+                        priority:
+                          type: string
+                          enum:
+                            - LOW
+                            - MEDIUM
+                            - HIGH
+                        lable:
+                          type: string
+                          enum: 
+                            - WORK
+                            - PERSONAL
+                        task:
+                          type: string
+                          example: Groceries
+                        done:
+                          type: boolean
