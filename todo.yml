@@ -45,3 +45,64 @@ paths:
                           example: Groceries
                         done:
                           type: boolean
+    post:
+      tags:
+        - Tasks
+      summary: Create new task.
+      requestBody:
+        required: true
+        content: 
+          application/json:
+            schema:
+              type: object
+              properties:
+                    dueDate:
+                      type: string
+                      format: date
+                    priority:
+                      type: string
+                      enum:
+                        - LOW
+                        - MEDIUM
+                        - HIGH
+                    lable:
+                      type: string
+                      enum: 
+                        - WORK
+                        - PERSONAL
+                    task:
+                      type: string
+                      example: Groceries
+                    done:
+                      type: boolean
+                      example: false
+      responses:
+        "200":
+          description: OK
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                        id:
+                          type: integer
+                          example: 123
+                        dueDate:
+                          type: string
+                          format: date
+                        priority:
+                          type: string
+                          enum:
+                            - LOW
+                            - MEDIUM
+                            - HIGH
+                        lable:
+                          type: string
+                          enum: 
+                            - WORK
+                            - PERSONAL
+                        task:
+                          type: string
+                          example: Groceries
+                        done:
+                          type: boolean
