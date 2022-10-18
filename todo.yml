@@ -106,10 +106,18 @@ paths:
                           example: Groceries
                         done:
                           type: boolean
+  /tasks/{taskID}:                   
     put:
       tags:
         - Tasks
       summary: Update existing task.
+      parameters:
+        - name: taskID
+          in: path
+          required: true
+          description: taskID
+          schema:
+            type: integer
       requestBody:
         required: true
         content: 
