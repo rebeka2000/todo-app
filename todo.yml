@@ -4,6 +4,39 @@ info:
   description: My Homework.
   version: 1.0.0
 
+components:
+  schemas:
+    Task:
+      type: object
+      properties:
+        dueDate:
+          type: string
+          format: date
+        priority:
+          type: string
+          enum:
+            - LOW
+            - MEDIUM
+            - HIGH
+        lable:
+          type: string
+          enum: 
+            - WORK
+            - PERSONAL
+        task:
+          type: string
+          example: Groceries
+        done:
+          type: boolean
+    TaskWithID:
+      allOf:
+        - type: object
+          properties:
+            id:
+              type: integer
+              example: 123 
+        - $ref: "#/components/schemas/Task"
+
 paths:
   /tasks:
     get:
@@ -19,32 +52,9 @@ paths:
                 type: object
                 properties:
                   tasks:
-                     type: array
-                     items: 
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                          example: 123
-                        dueDate:
-                          type: string
-                          format: date
-                        priority:
-                          type: string
-                          enum:
-                            - LOW
-                            - MEDIUM
-                            - HIGH
-                        lable:
-                          type: string
-                          enum: 
-                            - WORK
-                            - PERSONAL
-                        task:
-                          type: string
-                          example: Groceries
-                        done:
-                          type: boolean
+                    type: array
+                    items: 
+                      $ref: "#/components/schemas/TaskWithID"
     post:
       tags:
         - Tasks
@@ -54,59 +64,33 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                    dueDate:
-                      type: string
-                      format: date
-                    priority:
-                      type: string
-                      enum:
-                        - LOW
-                        - MEDIUM
-                        - HIGH
-                    lable:
-                      type: string
-                      enum: 
-                        - WORK
-                        - PERSONAL
-                    task:
-                      type: string
-                      example: Groceries
-                    done:
-                      type: boolean
-                      example: false
+              $ref: "#/components/schemas/Task"             
       responses:
         "200":
           description: OK
           content: 
             application/json:
               schema:
-                type: object
-                properties:
-                        id:
-                          type: integer
-                          example: 123
-                        dueDate:
-                          type: string
-                          format: date
-                        priority:
-                          type: string
-                          enum:
-                            - LOW
-                            - MEDIUM
-                            - HIGH
-                        lable:
-                          type: string
-                          enum: 
-                            - WORK
-                            - PERSONAL
-                        task:
-                          type: string
-                          example: Groceries
-                        done:
-                          type: boolean
+                $ref: "#/components/schemas/TaskWithID" 
   /tasks/{taskID}:
+    get:
+      tags:
+        - Tasks
+      summary: Returns a list of users.
+      parameters:
+        - name: taskID
+          in: path
+          required: true
+          description: taskID
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content: 
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TaskWithID"
     put:
       tags:
         - Tasks
@@ -123,61 +107,14 @@ paths:
         content: 
           application/json:
             schema:
-              type: object
-              properties:
-                    id:
-                      type: integer
-                      example: 123
-                    dueDate:
-                      type: string
-                      format: date
-                    priority:
-                      type: string
-                      enum:
-                        - LOW
-                        - MEDIUM
-                        - HIGH
-                    lable:
-                      type: string
-                      enum: 
-                        - WORK
-                        - PERSONAL
-                    task:
-                      type: string
-                      example: Groceries
-                    done:
-                      type: boolean
-                      example: false
+              $ref: "#/components/schemas/TaskWithID"  
       responses:
         "200":
           description: OK
           content: 
             application/json:
               schema:
-                type: object
-                properties:
-                        id:
-                          type: integer
-                          example: 123
-                        dueDate:
-                          type: string
-                          format: date
-                        priority:
-                          type: string
-                          enum:
-                            - LOW
-                            - MEDIUM
-                            - HIGH
-                        lable:
-                          type: string
-                          enum: 
-                            - WORK
-                            - PERSONAL
-                        task:
-                          type: string
-                          example: Groceries
-                        done:
-                          type: boolean                         
+                $ref: "#/components/schemas/TaskWithID"                    
     delete:
       tags:
         - Tasks
@@ -192,3 +129,4 @@ paths:
       responses:
         "200":
           description: OK
+    
