@@ -91,6 +91,10 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/TaskWithID"
+        "404":
+          description: Task ID not found
+        "401":
+          description: 
     put:
       tags:
         - Tasks
@@ -129,4 +133,19 @@ paths:
       responses:
         "200":
           description: OK
-    
+  /labelcolors:
+    get:
+      tags:
+        - Colors
+      summary: Returns a list of colors.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 
+                  type: string
+                example: ["#ff0000","#00ff00","#0000ff"]
+  
