@@ -42,7 +42,7 @@ paths:
     get:
       tags:
         - Tasks
-      summary: Returns a list of users.
+      summary: Returns a list of tasks.
       responses:
         "200":
           description: OK
@@ -76,7 +76,7 @@ paths:
     get:
       tags:
         - Tasks
-      summary: Returns a list of users.
+      summary: Returns a task.
       parameters:
         - name: taskID
           in: path
@@ -94,7 +94,9 @@ paths:
         "404":
           description: Task ID not found
         "401":
-          description: 
+          description: Unauthorized
+        "5XX":
+          description: Unexpected error.
     put:
       tags:
         - Tasks
@@ -122,7 +124,7 @@ paths:
     delete:
       tags:
         - Tasks
-      summary: Update existing task.
+      summary: Remove task.
       parameters:
         - name: taskID
           in: path
